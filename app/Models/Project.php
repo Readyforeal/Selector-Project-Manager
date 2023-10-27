@@ -9,14 +9,20 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'address'];
+    protected $fillable = ['name', 'address', 'description'];
 
-    //hasMany Categories
-
-    //hasMany Locations
-
-    public function selections()
+    public function team()
     {
-        return $this->hasMany(Selection::class);
+        return $this->belongsTo(Team::class);
+    }
+
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
+
+    public function selectionLists()
+    {
+        return $this->hasMany(SelectionList::class);
     }
 }

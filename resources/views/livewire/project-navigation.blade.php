@@ -1,58 +1,73 @@
-<div class="fixed w-[350px] top-0 h-screen left-0 p-6">
-    <div class="h-full rounded-xl bg-gray-100 text-black flex flex-col overflow-hidden">
-        <div class="flex-none p-6">
-            <a href="/projects" class="group text-sm font-semibold">
-                <i class="fa fa-chevron-left mr-2 translate-x-1 group-hover:translate-x-0 group-hover:text-blue-600 transition ease-in-out"></i>
-                <span class="">Projects</span>
+<div class="fixed w-[300px] top-0 bottom-0 left-0 py-3 pl-3">
+    <div class="h-full bg-neutral-950 text-white dark:bg-black dark:text-gray-200 flex flex-col rounded-xl overflow-hidden">
+        {{-- <div class="flex-none p-6">
+            <h1 class="text-2xl font-semibold text-blue-600">Clara</h1>
+        </div> --}}
+
+        @if($project != null)
+
+        <div class="px-6 mt-6">
+            <a href="/projects" class="opacity-50 hover:opacity-100 transition ease-in-out">
+                <i class="fa fa-fw fa-chevron-left"></i> Projects
             </a>
         </div>
 
-        @if($project != null)
-        <div class="p-6 flex">
-            <div class="w-10 h-10 rounded-xl flex justify-center items-center bg-blue-600">
-                <p class="font-semibold text-white">{{ Str::substr($project->name, 0, 2) }}</p>
+        <div class="flex justify-between p-6">
+            <div class="mr-2 mt-1">
+                <a href="/projects/{{ $project->id }}/settings" class="opacity-50 hover:opacity-100 transition ease-in-out">
+                    <i class="fa fa-fw fa-gear"></i>
+                </a>
             </div>
-            <div class="ml-3">
-                <p class="font-semibold">{{ $project->name }}</p>
-                <p class="text-xs opacity-50">{{ $project->address }}</p>
+            <div class="w-full">
+                <p class="text-2xl font-semibold">{{ $project->name }}</p>
+                <p class="text-sm opacity-50">{{ $project->address }}</p>
+                <p class="text-sm opacity-50">{{ $project->description }}</p>
             </div>
         </div>
 
         <div class="flex-grow p-6 overflow-y-auto">
-            <p class="font-semibold mb-3">General</p>
 
             @livewire('project-navigation-link', [
                 'url' => '/projects/' . $project->id,
                 'icon' => 'fa-home',
-                'label' => 'Home',
+                'label' => 'Dashboard',
             ])
 
             @livewire('project-navigation-link', [
-                'url' => '/projects/' . $project->id . '/selections',
-                'icon' => 'fa-check',
-                'label' => 'Selections',
+                'url' => '/projects/' . $project->id . '/selection-lists',
+                'icon' => 'fa-check-circle',
+                'label' => 'Selection Lists',
             ])
 
-            <p class="font-semibold my-3">Administration</p>
+            {{-- @livewire('project-navigation-link', [
+                'url' => '/projects/' . $project->id . '#',
+                'icon' => 'fa-money-bill-trend-up',
+                'label' => 'Estimating',
+            ]) --}}
+
+            {{-- @livewire('project-navigation-link', [
+                'url' => '/projects/' . $project->id . '#',
+                'icon' => 'fa-file-invoice',
+                'label' => 'Proposals',
+            ]) --}}
+
+            {{-- @livewire('project-navigation-link', [
+                'url' => '/projects/' . $project->id . '#',
+                'icon' => 'fa-image',
+                'label' => 'Photos',
+            ]) --}}
 
             @livewire('project-navigation-link', [
                 'url' => '/projects/' . $project->id . '/users',
                 'icon' => 'fa-users',
-                'label' => 'User Management',
+                'label' => 'Users',
             ])
 
-            @livewire('project-navigation-link', [
-                'url' => '/projects/' . $project->id . '/settings',
-                'icon' => 'fa-gear',
-                'label' => 'Project Settings',
-            ])
         </div>
         @endif
 
-        <div class="flex-none bg-blue-600/5 p-6">
-            <p class="font-semibold text-blue-600">Account</p>
-
-            <div class="my-3">
+        <div class="flex-none p-6 border-t border-neutral-800">
+            <div class="mb-3">
                 <p>{{ Auth::user()->name }}</p>
                 <p class="text-xs opacity-50">{{ Auth::user()->email }}</p>
             </div>
@@ -74,6 +89,8 @@
                     </span>
                 </a>
             </form>
+
+            <p class="text-xs mt-3">Clara V1.0.0</p>
         </div>
     </div>
 </div>

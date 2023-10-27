@@ -3,65 +3,65 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $projects = Project::get();
+        $projects = Auth::user()->currentTeam->projects()->get();
         return view('projects', compact('projects'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('project.createProject');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreProjectRequest $request)
+    public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'description' => '',
+        ]);
+
+        $authenticatedUser = Auth::user();
+
+        $project = $authenticatedUser->currentTeam->projects()->create($data);
+        return to_route('project.view', ['project' => $project]);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Project $project)
     {
         return view('project.viewProject', compact('project'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Project $project)
     {
-        //
+        return view('project.editProject', compact('project'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateProjectRequest $request, Project $project)
+    public function update(Request $request, Project $project)
     {
-        //
+        $data = $request->validate([
+            'name' => '',
+            'address' => '',
+            'description' => ''
+        ]);
+
+        $data['name'] = ucwords(strtolower($data['name']));
+        $data['description'] = ucwords(strtolower($data['description']));
+
+        $project->update($data);
+        
+        return to_route('project.edit', ['project' => $project]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return to_route('projects.index');
     }
 }

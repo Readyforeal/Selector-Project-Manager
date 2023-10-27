@@ -5,13 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>
-            @if(request()->route('project') !== null)
-            Selector | {{ request()->route('project')['name'] }}
-            @else
-            Selector
-            @endif
-        </title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -19,7 +13,30 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- Font Awesome -->
         <script src="https://kit.fontawesome.com/210158a457.js" crossorigin="anonymous"></script>
+
+        <style>
+            ::-webkit-scrollbar {
+                width: 10px;
+                padding: 2px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 5px;
+            }
+
+            ::-webkit-scrollbar-thumb { 
+                background: #888; 
+                border-radius: 5px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover { 
+                background: #555; 
+            }
+        </style>
 
         <!-- Styles -->
         @livewireStyles
@@ -27,19 +44,9 @@
     <body class="font-sans antialiased">
         <x-banner />
 
-        <div class="min-h-screen bg-white">
-
-            {{-- <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif --}}
-
+        <div class="min-h-screen bg-gray-100 dark:bg-black dark:text-gray-200 rounded-">
             <!-- Page Content -->
-            <main>
+            <main class="opacity-0 -ml-3 transition-all ease-out duration-300" id="main">
                 {{ $slot }}
             </main>
         </div>
@@ -47,5 +54,14 @@
         @stack('modals')
 
         @livewireScripts
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                var main = document.getElementById('main');
+                main.classList.add('opacity-100');
+                main.classList.add('ml-0')
+            });
+        </script>
+        
     </body>
 </html>
