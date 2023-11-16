@@ -11,18 +11,15 @@ class Project extends Model
 
     protected $fillable = ['name', 'address', 'description'];
 
-    public function team()
-    {
+    public function team() {
         return $this->belongsTo(Team::class);
     }
 
-    public function locations()
-    {
+    public function locations() {
         return $this->hasMany(Location::class);
     }
 
-    public function selectionLists()
-    {
+    public function selectionLists() {
         return $this->hasMany(SelectionList::class);
     }
 }

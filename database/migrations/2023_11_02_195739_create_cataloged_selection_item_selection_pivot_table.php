@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('selections', function (Blueprint $table) {
+        Schema::create('cataloged_selection_item_selection', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('selection_list_id');
-            $table->string('title');
-            $table->index('selection_list_id');
+            $table->unsignedBigInteger('cataloged_selection_id');
+            $table->unsignedBigInteger('selection_id');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('selections');
+        Schema::dropIfExists('cataloged_selection_item_selection');
     }
 };

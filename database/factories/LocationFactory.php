@@ -17,7 +17,8 @@ class LocationFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'project_id' => 1,
+            'name' => fake()->name(),
         ];
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('team_id');
             $table->string('name');
             $table->integer('order');
+            $table->index('team_id');
             $table->timestamps();
         });
     }

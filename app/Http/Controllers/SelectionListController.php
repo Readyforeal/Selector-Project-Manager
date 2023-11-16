@@ -26,6 +26,7 @@ class SelectionListController extends Controller
     }
 
     public function show(Project $project, SelectionList $selectionList) {
-        return view('selectionList.viewSelectionList', compact('project', 'selectionList'));
+        $selections = $selectionList->selections;
+        return view('selectionList.viewSelectionList', compact('project', 'selectionList', 'selections'));
     }
 }

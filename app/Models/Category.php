@@ -11,14 +11,15 @@ class Category extends Model
 
     protected $fillable = ['name', 'order'];
 
-    public function team()
-    {
+    public function team() {
         return $this->belongsTo(Team::class);
     }
 
-    public function selections()
-    {
-        // Many to many relationship
-        return $this->belongsToMany(Selection::class);
+    public function catalogedSelectionItems() {
+        return $this->belongsToMany(CatalogedSelectionItem::class);
+    }
+
+    public function selectionItems() {
+        return $this->belongsToMany(SelectionItem::class);
     }
 }

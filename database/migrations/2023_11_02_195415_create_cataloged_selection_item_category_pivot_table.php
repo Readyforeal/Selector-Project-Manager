@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_selection', function (Blueprint $table) {
+        Schema::create('cataloged_selection_item_category', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('cataloged_selection_item_id');
             $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('selection_id');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_selection');
+        Schema::dropIfExists('cataloged_selection_item_category');
     }
 };

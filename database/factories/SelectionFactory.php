@@ -17,7 +17,8 @@ class SelectionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'selection_list_id' => 1,
+            'title' => fake()->word(),
         ];
     }
 }

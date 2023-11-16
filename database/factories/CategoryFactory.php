@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,12 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'team_id' => 1,
+            'name' => fake()->name(),
         ];
+    }
+
+    public function getHighestOrderValue() {
+        return 1;
     }
 }

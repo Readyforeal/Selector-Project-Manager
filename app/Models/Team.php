@@ -42,13 +42,15 @@ class Team extends JetstreamTeam
         'deleted' => TeamDeleted::class,
     ];
 
-    public function projects()
-    {
+    public function projects() {
         return $this->hasMany(Project::class);
     }
 
-    public function categories()
-    {
+    public function categories() {
         return $this->hasMany(Category::class);
+    }
+
+    public function CatalogedSelectionItems() {
+        return $this->hasMany(CatalogedSelectionItem::class);
     }
 }

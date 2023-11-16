@@ -11,14 +11,11 @@ class Location extends Model
 
     protected $fillable = ['name'];
 
-    public function project()
-    {
+    public function project() {
         return $this->belongsTo(Project::class);
     }
 
-    public function selections()
-    {
-        // Many to many relationship
+    public function selections() {
         return $this->belongsToMany(Selection::class);
     }
 }

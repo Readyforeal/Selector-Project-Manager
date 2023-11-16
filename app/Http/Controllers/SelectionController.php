@@ -113,10 +113,10 @@ class SelectionController extends Controller
         ]);
 
         // Upload selection image
-        $imagePath = $selection->image;
+        $imagePath = $selection->selectionItem->image;
         if($request->hasFile('image'))
         {
-            if($selection->image != '')
+            if($selection->selectionItem->image != '')
             {
                 Storage::delete('public/' . $imagePath);
             }
@@ -126,7 +126,11 @@ class SelectionController extends Controller
 
         // Update the selection
         $selection->update([
-            'title' => ucwords(strtolower($data['title'])),
+            'title' => $data['title'],
+        ]);
+
+        // Update the selection item
+        $selection->selectionItem->update([
             'name' => $data['name'],
             'notes' => $data['notes'],
             'item_number' => $data['item_number'],
@@ -142,7 +146,7 @@ class SelectionController extends Controller
         // Decode selected categories and sync to pivot
         $data['categories'] = json_decode($data['categories'], true);
         $selectedCategoryIds = $data['categories'];
-        $selection->categories()->sync($selectedCategoryIds);
+        $selection->selectionItem->categories()->sync($selectedCategoryIds);
 
         // Decode selected locations and sync to pivot
         $data['locations'] = json_decode($data['locations'], true);
@@ -154,7 +158,7 @@ class SelectionController extends Controller
 
     public function approve(Request $request, Project $project, SelectionList $selectionList, Selection $selection)
     {
-        $selection->approval()->create([
+        $selection->approvals()->create([
             'user_id' => Auth::user()->id,
             'signature' => Auth::user()->name,
         ]);
